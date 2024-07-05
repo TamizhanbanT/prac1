@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>final mapping</title>
+</head>
+<body>
+    <script>
+        
+  const prod=`{"products": [
+    { "id": 1, "name": "Laptop", "price": 1000 },
+    { "id": 2, "name": "Smartphone", "price": 500 },
+    { "id": 3, "name": "Tablet", "price": 300 }
+  ],
+  "productDetails": [
+    { "id": 1, "brand": "BrandA", "category": "Electronics" },
+    { "id": 2, "brand": "BrandB", "category": "Electronics" },
+    { "id": 3, "brand": "BrandC", "category": "Electronics" }
+  ]
+}`
+const data=JSON.parse(prod)
+console.log(data)
+//console.log(data.productDetails)
+
+//combine
+
+const combine=data.products.map(x=>{
+    const another=data.productDetails.find(y=>y.id===x.id)
+    console.log(x)
+
+    return{
+        ...x,
+        ...another
+    }
+    
+})
+console.log(combine)
+
+const result = combine.map(c => `${c.name} (ID: ${c.id}) is a ${c.category} product by ${c.brand} and costs $${c.price}.`);
+console.log(result)
+
+
+// Sample JSON data
+const studData = `{
+  "students": [
+    { "name": "John", "scores": { "math": 85, "english": 78, "science": 92 } },
+    { "name": "Jane", "scores": { "math": 90, "english": 88, "science": 95 } },
+    { "name": "Jim", "scores": { "math": 70, "english": 60, "science": 75 } }
+  ]
+}`;
+
+// Parse JSON data
+const parse = JSON.parse(studData);
+console.log(parse);
+
+// Calculate average score for each student and create a new array
+const studAvg= parse.students.map(x => {
+  const score = x.scores;
+  console.log(score)
+  const totalScore = score.math + score.english + score.science;
+  const avgscore = totalScore / 3;
+
+  return {
+    name: x.name,
+    avgscore: avgscore.toFixed(2)  // Rounding to two decimal places
+  };
+});
+
+// Output the result
+console.log(studAvg);
+// Output:
+// [
+//   { name: 'John', averageScore: '85.00' },
+//   { name: 'Jane', averageScore: '91.00' },
+//   { name: 'Jim', averageScore: '68.33' }
+// ]
+
+
+
+
+    </script>
+    
+</body>
+</html>
